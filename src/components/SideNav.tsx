@@ -14,10 +14,10 @@ const SideNav = () => {
       title: "emergensees",
       link: '/emergensees'
     },
-    {
-      title: "notification",
-      link: '/notification'
-    },
+    // {
+    //   title: "notification",
+    //   link: '/notification'
+    // },
     {
       title: "roles",
       link: '/roles'
@@ -33,13 +33,13 @@ const SideNav = () => {
   ]
   const useIsCurrentRoute = (route: string) => {
     const router = usePathname();
-    if (router === route) {
+    if (router === route ) {
       return true;
     }
   };
 
   return (
-    <div className='bg-white rounded-md p-3 h-screen w-[18%]'>
+    <div className='bg-white fixed rounded-xl p-3 h-full w-[18%]'>
       <Link href={'/'}>
         <div className={`my-6 ${useIsCurrentRoute('/') && 'bg-[#FFCC00] p-3 rounded-xl'}`}>
           <p className='uppercase text-[#3D5059] font-medium'>Dashboard</p>
