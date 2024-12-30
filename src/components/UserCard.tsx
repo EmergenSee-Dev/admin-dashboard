@@ -15,7 +15,9 @@ const UserCard = () => {
       </div>
 
       <div className='my-auto'>
-        <button className="bg-[#DBE6FF] text-[#2764E7] p-2 w-32 my-auto rounded-full ml-4 text-sm">View Records</button>
+        <Link href={'/users/uploads/123'}>
+          <button className="bg-[#DBE6FF] text-[#2764E7] p-2 w-32 my-auto rounded-full ml-4 text-sm">View Records</button>
+        </Link>
         <Link href={'/users/123'}>
           <button className="bg-[#DDC2E6] text-[#671C73] p-2 w-32 my-auto rounded-full ml-4 text-sm">View Profile</button>
         </Link>

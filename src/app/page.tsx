@@ -12,7 +12,7 @@ export default function Home() {
           <div className="bg-white p-6 rounded-xl">
             <div className="flex justify-between border-b border-[#DFDFDF] pb-2">
               <p className="text-[#9FA4A7] font-medium">RECENT  UPLOADS</p>
-              <Link href={''}>
+              <Link href={'/emergensees'}>
                 <p className="text-[#FFA31A]">See all</p>
               </Link>
             </div>
@@ -31,7 +31,7 @@ export default function Home() {
           <div className="bg-white p-6 rounded-xl">
             <div className="flex justify-between border-b border-[#DFDFDF] pb-2">
               <p className="text-[#9FA4A7] font-medium">All users</p>
-              <Link href={''}>
+              <Link href={'/users'}>
                 <p className="text-[#FFA31A]">See all</p>
               </Link>
             </div>
@@ -46,8 +46,9 @@ export default function Home() {
                   <p className="font-medium ml-2">9 - Sep - 2022, 13:02</p>
                 </div>
               </div>
-              <button className="bg-[#66B5FF33] text-[#3688FF] p-2 w-32 my-auto rounded-md ml-4 text-sm">View Records</button>
-
+              <Link href={'/users/uploads/123'}>
+                <button className="bg-[#66B5FF33] text-[#3688FF] p-2 w-32 my-auto rounded-md ml-4 text-sm">View Records</button>
+              </Link>
             </div>)}
           </div>
         </section>
@@ -55,7 +56,7 @@ export default function Home() {
           <div className="flex justify-between mb-6">
             <p className="text-[#3D5059] uppercase font-medium">View all Uploads for emergencies</p>
             <button className="p-3 bg-[#F5DDD199] text-[#F57E43] rounded-md ">
-            View All Uploads
+              View All Uploads
             </button>
           </div>
           <div className="flex justify-between">
