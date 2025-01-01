@@ -38,9 +38,24 @@ const SingleCase = () => {
               </div>
             </div>
           </div>
-          <div className='flex'>
-            <div></div>
-            <div></div>
+          <div className='flex justify-between mt-4'>
+            <div className='w-[71%]'>
+              <p className='text-[#9C9C9F] uppercase mb-3'>Incident description</p>
+              <div className='p-4 rounded-xl bg-[#D4E3E84F]'>
+                <p>A fall accident occurred in Lekki earlier today, resulting in injuries to four individuals. The incident took place at a construction site on Admiralty Road when scaffolding unexpectedly gave way during ongoing work. The workers lost their balance, falling from a significant height. Emergency responders quickly arrived on the scene, providing first aid before rushing the injured to a nearby hospital. </p>
+              </div>
+            </div>
+            <div className='w-[28%]'>
+              <p className='text-[#9C9C9F] uppercase mb-3'>Map (Location of incident)</p>
+              <div className='p-4 rounded-xl bg-[#D4E3E84F]'>
+                <div className='flex justify-between'>
+                  <img src="/images/map.png" alt="" />
+                  <button className='bg-[#1AA029] rounded-full text-white px-3 py-2 text-sm my-auto'>Click to view</button>
+                </div>
+                <p className='mt-1'>Road 15, Victoria Island, Lekki
+                Lagos Nigeria.</p>
+              </div>
+            </div>
           </div>
         </section>
       </>
