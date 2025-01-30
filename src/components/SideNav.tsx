@@ -14,18 +14,18 @@ const SideNav = () => {
       title: "emergensees",
       link: '/emergensees'
     },
-    {
-      title: "notification",
-      link: '/notification'
-    },
-    {
-      title: "roles",
-      link: '/roles'
-    },
-    {
-      title: "settings",
-      link: '/settings'
-    },
+    // {
+    //   title: "notification",
+    //   link: '/notification'
+    // },
+    // {
+    //   title: "roles",
+    //   link: '/roles'
+    // },
+    // {
+    //   title: "settings",
+    //   link: '/settings'
+    // },
     {
       title: "logout",
       link: ''
@@ -39,7 +39,7 @@ const SideNav = () => {
   };
 
   return (
-    <div className='bg-white fixed rounded-xl p-3 h-full w-[18%]'>
+    <div className=''>
       <Link href={'/'}>
         <div className={`my-6 ${useIsCurrentRoute('/') && 'bg-[#FFCC00] p-3 rounded-xl'}`}>
           <p className='uppercase text-[#3D5059] font-bold'>Dashboard</p>

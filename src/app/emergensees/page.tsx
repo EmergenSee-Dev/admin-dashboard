@@ -20,11 +20,11 @@ const emergensees = () => {
       <>
         <TotalSection />
         <section className='bg-white rounded-xl p-4 mt-4'>
-          <div className='flex w-full justify-between'>
-            <div className='flex justify-between'>
-              {filters.map(single => <button onClick={() => setActive(single)} className='p-3 my-auto rounded-full mr-4 text-xs text-[#9FA4A7] px-4 bg-[#EFEFEF]'>{single}</button>)}
+          <div className='lg:flex w-full justify-between'>
+            <div className='grid lg:grid-cols-6 grid-cols-3 sm:mb-3'>
+              {filters.map(single => <button onClick={() => setActive(single)} className='lg:p-3 sm:py-3 sm:mb-2 my-auto rounded-full mr-4 lg:text-xs text-[10px] text-[#9FA4A7] lg:px-4 bg-[#EFEFEF]'>{single}</button>)}
             </div>
-            <input type="text" placeholder='Search' className='bg-[#EFEFEF] p-3 rounded-md w-72' />
+            <input type="text" placeholder='Search' className='bg-[#EFEFEF] p-3 rounded-md lg:w-72 w-full' />
           </div>
           <div className='flex justify-between border-b border-[#DFDFDF] py-6'>
             <p className='uppercase font-bold'>all  UPLOADS</p>

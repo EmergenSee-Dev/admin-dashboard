@@ -13,6 +13,13 @@ export default {
         foreground: "var(--foreground)",
       },
     },
+    screens: {
+      sm: { max: "700px" },
+      xs: { max: "320px" },
+      md: "700px",
+      lg: "1024px",
+      xl: "1280px",
+    },
   },
   plugins: [],
 } satisfies Config;

@@ -6,7 +6,7 @@ const Users = () => {
   return (
     <DashboardLayout>
       <div className='p-4 bg-white rounded-xl'>
-        <input type="text" placeholder='Search' className='p-3 bg-[#EFEFEF] rounded-md lg:w-1/2' />
+        <input type="text" placeholder='Search' className='p-3 bg-[#EFEFEF] rounded-md lg:w-1/2 w-full' />
         <div className='mt-8 p-4 rounded-md border border-[#D2D2D2]'>
           <div className='flex justify-between border-b border-[#DFDFDF] py-2'>
             <p className='uppercase font-bold'>All users</p>

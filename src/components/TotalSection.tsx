@@ -2,7 +2,7 @@ import React from 'react';
 
 const TotalSection = () => {
   return (
-    <section className='flex grid grid-cols-3 gap-6'>
+    <section className='grid lg:grid-cols-3 gap-6'>
       <div className='bg-white flex justify-between rounded-xl p-6'>
         <div>
           <p className='text-[#879297]'>Total number  of mobile users</p>
