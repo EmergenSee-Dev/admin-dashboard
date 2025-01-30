@@ -1,8 +1,23 @@
+'use client'
+
 import DashboardLayout from '@/components/DashboardLayout';
 import UserCard from '@/components/UserCard';
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 
 const Users = () => {
+  const [users, setUsers] = useState([])
+
+  const getUsers = async () => {
+    const response = await axios.get('http://localhost:3002/api/users')
+    console.log(response.data.data)
+    setUsers(response.data.data)
+  }
+
+  useEffect(() => {
+    getUsers()
+  }, [])
+
   return (
     <DashboardLayout>
       <div className='p-4 bg-white rounded-xl'>
@@ -13,7 +28,7 @@ const Users = () => {
             <p className='font-medium'>4,000  USERS</p>
           </div>
           <div>
-            {[1, 2, 3, 4, 5, 6].map(single => <UserCard />)}
+            {users.length >= 1 ? users.map((single: any) => <UserCard key={single._id} data={single} />) : null}
           </div>
         </div>
       </div>

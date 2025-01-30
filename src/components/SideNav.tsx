@@ -28,7 +28,7 @@ const SideNav = () => {
     // },
     {
       title: "logout",
-      link: ''
+      link: '/'
     },
   ]
   const useIsCurrentRoute = (route: string) => {
@@ -39,9 +39,9 @@ const SideNav = () => {
   };
 
   return (
-    <div className=''>
-      <Link href={'/'}>
-        <div className={`my-6 ${useIsCurrentRoute('/') && 'bg-[#FFCC00] p-3 rounded-xl'}`}>
+    <div className='h-screen'>
+      <Link href={'/dashboard'}>
+        <div className={`my-6 ${useIsCurrentRoute('/dashboard') && 'bg-[#FFCC00] p-3 rounded-xl'}`}>
           <p className='uppercase text-[#3D5059] font-bold'>Dashboard</p>
         </div>
       </Link>

@@ -1,12 +1,27 @@
 'use client'
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SideNav from './SideNav';
 import Notification from './Notification';
+import { useRouter } from 'next/navigation';
+import { useAtom } from 'jotai';
+import { token } from '@/store/index';
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const [open, setOpen] = useState(false);
+  const router = useRouter();
   const [showSidebar, setShowSidebar] = useState(false);
+  const [authTtoken, _] = useAtom(token)
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (!authTtoken) {
+        router.replace('/');
+      }
+    }, 1000); // Delay by 500ms (adjust as needed)
+
+    return () => clearTimeout(timeout); // Cleanup on unmount
+  }, [authTtoken, router]);
 
   return (
     <>
@@ -30,7 +45,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
       </header>
 
       {/* Layout */}
-      <div className="flex flex-col md:flex-row p-3 mt-16">  
+      <div className="flex flex-col md:flex-row p-3 mt-16">
         {/* Sidebar - Hidden on mobile, toggled via menu button */}
         <div
           className={`fixed p-4 left-0 lg:w-[23%] bg-white shadow-lg transform transition-transform duration-300 ease-in-out
