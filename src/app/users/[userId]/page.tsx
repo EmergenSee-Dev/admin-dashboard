@@ -12,7 +12,7 @@ const singleUser = () => {
   const [user, setUser] = useState<any>(null)
 
   const getUser = async () => {
-    const response = await axios.get(`http://localhost:3002/api/user/${id}`)
+    const response = await axios.get(`https://backend-api-auvp.onrender.com/api/user/${id}`)
     console.log(response.data.data)
     setUser(response.data.data)
   }

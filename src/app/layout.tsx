@@ -19,7 +19,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  axios.defaults.baseURL = 'http://localhost:3002/'
+  axios.defaults.baseURL = 'https://backend-api-auvp.onrender.com/'
 
   return (
     <html lang="en">
