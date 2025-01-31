@@ -17,7 +17,7 @@ const roles = () => {
             {/* <p className='font-medium'>4,000  USERS</p> */}
           </div>
           <div>
-            {[1, 2, 3].map(single => <UserCard />)}
+            {/* {[1, 2, 3].map(single => <UserCard />)} */}
           </div>
         </div>
       </div>
