@@ -13,7 +13,7 @@ const singleUser = () => {
 
   const getUser = async () => {
     const response = await axios.get(`https://backend-api-auvp.onrender.com/api/user/${id}`)
-    console.log(response.data.data)
+    // console.log(response.data.data)
     setUser(response.data.data)
   }
 

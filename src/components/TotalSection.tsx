@@ -1,12 +1,33 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 
 const TotalSection = () => {
+
+  const [upload, setUpload] = useState<any[]>([null])
+  const [users, setUsers] = useState([])
+
+
+  const getUpload = async () => {
+    const response = await axios.get(`https://backend-api-auvp.onrender.com/api/emergensee/all`)
+    // console.log(response.data.data)
+    setUpload(response.data.data)
+  }
+
+  const getUsers = async () => {
+    const response = await axios.get(`https://backend-api-auvp.onrender.com/api/users`)
+    // console.log(response.data.data)
+    setUsers(response.data.data)
+  }
+  useEffect(() => {
+    getUpload()
+    getUsers()
+  }, [])
   return (
     <section className='grid lg:grid-cols-3 gap-6'>
       <div className='bg-white flex justify-between rounded-xl p-6'>
         <div>
           <p className='text-[#879297]'>Total number  of mobile users</p>
-          <h1 className='text-3xl font-bold'>3,632</h1>
+          <h1 className='text-3xl font-bold'>{users?.length}</h1>
         </div>
         <div className='bg-[#66B5FF33] my-auto p-4 rounded-md text-[#3688FF]'>
           <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className="bi bi-people" viewBox="0 0 16 16">
@@ -17,7 +38,7 @@ const TotalSection = () => {
       <div className='bg-white flex justify-between rounded-xl p-6'>
         <div>
           <p className='text-[#879297]'>Total number of Submissions</p>
-          <h1 className='text-3xl font-bold'>3,632</h1>
+          <h1 className='text-3xl font-bold'>{upload?.length}</h1>
         </div>
         <div className='bg-[#671C7333] p-4 my-auto rounded-md text-[#671C73]'>
           <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className="bi bi-file-bar-graph" viewBox="0 0 16 16">

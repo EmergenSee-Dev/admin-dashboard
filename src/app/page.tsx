@@ -13,7 +13,7 @@ const Auth = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [authTtoken, setAuthToken] = useAtom(token)
-  console.log(authTtoken)
+  // console.log(authTtoken)
   // Handles form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,12 +34,12 @@ const Auth = () => {
     }
     try {
       // Simulate API login request (replace with real API call)
-      const response = await axios.post('auth/login', {
+      const response = await axios.post('https://backend-api-auvp.onrender.com/auth/login', {
         phoneNumber: phone, password
       }
       );
 
-      console.log(response)
+      // console.log(response)
       setAuthToken(response.data.token)
       // const data = await response.json();
       // if (!response.ok) throw new Error(data.message || 'Login failed');
@@ -56,6 +56,7 @@ const Auth = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md p-6 bg-white rounded-xl shadow-md">
+        <img src="/images/emergensee4.png" className="h-10 object-cover mx-auto" alt="Logo" />
         <h2 className="text-2xl font-semibold text-center mb-6">Login</h2>
 
         {error && <p className="text-red-500 text-sm text-center mb-4">{error}</p>}
@@ -98,9 +99,9 @@ const Auth = () => {
         </form>
 
         {/* Register Link */}
-        <p className="text-center text-sm text-gray-600 mt-4">
+        {/* <p className="text-center text-sm text-gray-600 mt-4">
           Don't have an account? <a href="/register" className="text-blue-500 hover:underline">Sign up</a>
-        </p>
+        </p> */}
       </div>
     </div>
   );
