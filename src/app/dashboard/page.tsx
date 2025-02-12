@@ -1,5 +1,6 @@
 'use client'
 
+import Btn from "@/components/Btn";
 import DashboardLayout from "@/components/DashboardLayout";
 import TotalSection from "@/components/TotalSection";
 import { formatDate } from "@/utils/formatData";
@@ -44,7 +45,7 @@ export default function Home() {
             {upload.length >= 1 && upload.slice(0, 3).map(single => <div key={single?._id} className=" border-b border-[#DFDFDF] py-2">
               <div className="flex">
                 <p className="font-medium my-auto capitalize text-lg text-[#3D5059]">{single?.name}</p>
-                <button className="bg-[#1AA029] p-2 rounded-full capitalize text-white ml-4 text-sm">{single?.type} Update</button>
+                <Btn type={single?.type} />
               </div>
               <div className="flex text-[#9FA4A7] ">
                 <p>{single?.author.name}</p>
@@ -88,31 +89,31 @@ export default function Home() {
           <div className="grid gap-4 lg:grid-cols-5 grid-cols-2">
             <div className="bg-[#E0F0FF] p-4 text-center rounded-xl">
               <img src="/images/fall.png" className="mx-auto" alt="" />
-              <Link href={''}>
+              <Link href={'/emergensees?filter=fall'}>
                 <p className="text-[#1382BB] mt-2">View All</p>
               </Link>
             </div>
             <div className="bg-[#E0F0FF] p-4 text-center rounded-xl ">
               <img src="/images/assault.png" className="mx-auto" alt="" />
-              <Link href={''}>
+              <Link href={'/emergensees?filter=assault'}>
                 <p className="text-[#1382BB] mt-2">View All</p>
               </Link>
             </div>
             <div className="bg-[#E0F0FF] p-4 text-center rounded-xl">
               <img src="/images/burn.png" className="mx-auto" alt="" />
-              <Link href={''}>
+              <Link href={'/emergensees?filter=burn'}>
                 <p className="text-[#1382BB] mt-2">View All</p>
               </Link>
             </div>
             <div className="bg-[#E0F0FF] p-4 text-center rounded-xl">
               <img src="/images/accident.png" className="mx-auto" alt="" />
-              <Link href={''}>
+              <Link href={'/emergensees?filter=motor%20vehicle'}>
                 <p className="text-[#1382BB] mt-2">View All</p>
               </Link>
             </div>
             <div className="bg-[#E0F0FF] p-4 text-center rounded-xl">
               <img src="/images/other.png" className="mx-auto" alt="" />
-              <Link href={''}>
+              <Link href={'/emergensees?filter=others'}>
                 <p className="text-[#1382BB] mt-2">View All</p>
               </Link>
             </div>

@@ -1,6 +1,7 @@
 import { formatDate } from '@/utils/formatData';
 import Link from 'next/link';
 import React from 'react';
+import Btn from './Btn';
 
 const CaseCard = ({ data }: { data: any }) => {
   return (
@@ -8,7 +9,8 @@ const CaseCard = ({ data }: { data: any }) => {
       <div>
         <div className="flex sm:justify-between">
           <p className="font-medium my-auto text-lg capitalize text-[#3D5059]">{data?.name}</p>
-          <button className="bg-[#1AA029] p-2 rounded-full capitalize text-white ml-4 text-sm">{data?.type} Update</button>
+          <Btn type={data?.type} />
+          {/* <button className="bg-[#1AA029] p-2 rounded-full capitalize text-white ml-4 text-sm">{data?.type} Update</button> */}
         </div>
         <div className="flex text-[#9FA4A7] ">
           <p>{data?.author.name}</p>

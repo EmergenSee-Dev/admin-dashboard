@@ -14,6 +14,21 @@ const Auth = () => {
   const [error, setError] = useState('');
   const [authTtoken, setAuthToken] = useAtom(token)
   // console.log(authTtoken)
+
+  const formatPhoneNumber = (phone: string) => {
+    // Remove all non-digit characters
+    const cleaned = phone.replace(/\D/g, '');
+    // If the number starts with "234", assume it's already in the correct format
+    if (cleaned.startsWith('234')) {
+      return cleaned;
+    }
+    // If the number starts with "0", remove it and prepend "+234"
+    if (cleaned.startsWith('0')) {
+      return '234' + cleaned.slice(1);
+    }
+    // Otherwise, simply prepend "+234"
+    return '234' + cleaned;
+  };
   // Handles form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,7 +50,8 @@ const Auth = () => {
     try {
       // Simulate API login request (replace with real API call)
       const response = await axios.post('https://backend-api-auvp.onrender.com/auth/login', {
-        phoneNumber: phone, password
+        phoneNumber: formatPhoneNumber(phone),
+        password
       }
       );
 
