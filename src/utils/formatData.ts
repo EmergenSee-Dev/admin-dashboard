@@ -21,3 +21,13 @@ export const formatDate = (date: string | Date, format: string = "YYYY MMMM DD")
 
   return format.replace(/YYYY|MMMM|MM|DD|HH|mm|ss/g, (match) => replacements[match]);
 };
+
+
+export const formatTime = (date: Date | any) => {
+  if (!date) return "";
+  
+  const parsedDate = new Date(date);
+  if (isNaN(parsedDate.getTime())) return date; // Return the original value if it's invalid
+
+  return parsedDate.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: true });
+};

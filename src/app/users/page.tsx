@@ -11,7 +11,7 @@ const Users = () => {
   const getUsers = async () => {
     const response = await axios.get('https://backend-api-auvp.onrender.com/api/users')
     // console.log(response.data.data)
-    setUsers(response.data.data)
+    setUsers(response.data.data.reverse())
   }
 
   useEffect(() => {

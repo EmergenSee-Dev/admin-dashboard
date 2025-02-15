@@ -35,7 +35,7 @@ const EmergenseesContent = () => {
     }
     try {
       const response = await axios.get(url);
-      setUpload(response.data.data);
+      setUpload(response.data.data.reverse());
     } catch (error) {
       console.error("Error fetching uploads:", error);
     }

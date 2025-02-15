@@ -17,13 +17,13 @@ export default function Home() {
   const getUpload = async () => {
     const response = await axios.get(`https://backend-api-auvp.onrender.com/api/emergensee/all`)
     // console.log(response.data.data)
-    setUpload(response.data.data)
+    setUpload(response.data.data.reverse())
   }
 
   const getUsers = async () => {
     const response = await axios.get(`https://backend-api-auvp.onrender.com/api/users`)
     // console.log(response.data.data)
-    setUsers(response.data.data)
+    setUsers(response.data.data.reverse())
   }
   useEffect(() => {
     getUpload()
