@@ -6,6 +6,7 @@ import TotalSection from '@/components/TotalSection';
 import axios from 'axios';
 import { useRouter, useSearchParams } from 'next/navigation';
 import CaseCard from '@/components/CaseCard';
+import GoogleMapEmbed from '@/components/Map';
 
 const EmergenseesContent = () => {
   const router = useRouter();
@@ -24,7 +25,7 @@ const EmergenseesContent = () => {
     { title: "Other Cases", value: "others" }
   ];
 
-  const [upload, setUpload] = useState([]);
+  const [upload, setUpload] = useState<any>([]);
 
   // Fetch uploads with the active filter.
   // If active is "All", we fetch all uploads; otherwise, we add a query parameter.
@@ -54,7 +55,10 @@ const EmergenseesContent = () => {
 
   return (
     <>
-      <TotalSection />
+      {/* <TotalSection /> */}
+      <div className='p-4 bg-white rounded-xl'>
+        <GoogleMapEmbed height={'200px'} address={upload[0]?.address} />
+      </div>
       <section className='bg-white rounded-xl p-4 mt-4'>
         <div className='lg:flex w-full justify-between'>
           <div className='grid lg:grid-cols-6 grid-cols-3 sm:mb-3'>
@@ -81,7 +85,7 @@ const EmergenseesContent = () => {
               <p className='font-medium'>{upload.length} UPLOADS</p>
             </div>
             {upload.length > 0 ? (
-              upload.map((single, index) => (
+              upload.map((single: unknown, index: React.Key | null | undefined) => (
                 <CaseCard key={index} data={single} />
               ))
             ) : (
