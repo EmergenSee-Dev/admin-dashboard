@@ -53,6 +53,37 @@ const EmergenseesContent = () => {
     router.push(`/emergensees?filter=${encodeURIComponent(filterType)}`);
   };
 
+  const handleDownloadCSV = async () => {
+    try {
+      const response = await fetch("https://backend-api-auvp.onrender.com/api/emergensee/download", {
+        method: "GET",
+        headers: {
+          "Content-Type": "text/csv",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to download CSV");
+      }
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "emergensees.csv"; // File name
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+
+      // Revoke the URL to free memory
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Error downloading CSV:", error);
+    }
+  };
+
+
   return (
     <>
       {/* <TotalSection /> */}
@@ -80,13 +111,16 @@ const EmergenseesContent = () => {
         </div>
         {upload && (
           <>
-            <div className='flex justify-between border-b border-[#DFDFDF] py-6'>
-              <p className='uppercase font-bold'>all UPLOADS</p>
+            <div className='lg:flex justify-between border-b border-[#DFDFDF] py-6'>
+              <div className='flex '>
+                <p className='uppercase font-bold my-auto'>all UPLOADS</p>
+                <button onClick={() => handleDownloadCSV()} className='p-3 rounded-full bg-[#FFCC00] ml-6'>Download CSV</button>
+              </div>
               <p className='font-medium'>{upload.length} UPLOADS</p>
             </div>
             {upload.length > 0 ? (
               upload.map((single: unknown, index: React.Key | null | undefined) => (
-                <CaseCard key={index} data={single} />
+                <CaseCard key={index} data={single}  />
               ))
             ) : (
               <p className='text-center py-6'>
