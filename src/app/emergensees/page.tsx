@@ -88,7 +88,7 @@ const EmergenseesContent = () => {
     <>
       {/* <TotalSection /> */}
       <div className='p-4 bg-white rounded-xl'>
-        <GoogleMapEmbed height={'200px'} address={upload[0]?.address} />
+        <GoogleMapEmbed height={'400px'} address={upload[0]?.address} />
       </div>
       <section className='bg-white rounded-xl p-4 mt-4'>
         <div className='lg:flex w-full justify-between'>

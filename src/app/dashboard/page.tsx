@@ -2,6 +2,7 @@
 
 import Btn from "@/components/Btn";
 import DashboardLayout from "@/components/DashboardLayout";
+import MultiplePinMap from "@/components/MultiplePinMap";
 import TotalSection from "@/components/TotalSection";
 import { formatDate } from "@/utils/formatData";
 import axios from "axios";
@@ -12,11 +13,18 @@ import { useState, useEffect } from "react";
 export default function Home() {
   const [upload, setUpload] = useState<any[]>([null])
   const [users, setUsers] = useState([])
+  const [locations, setLocations] = useState(null)
 
 
   const getUpload = async () => {
     const response = await axios.get(`https://backend-api-auvp.onrender.com/api/emergensee/all`)
     // console.log(response.data.data)
+    const addresses = response.data.data.map((item: { _id: any; address: any; }) => ({
+      id: item?._id,
+      address: item?.address,
+    }));
+    // console.log(addresses)
+    setLocations(addresses)
     setUpload(response.data.data.reverse())
   }
 
@@ -34,6 +42,9 @@ export default function Home() {
     <DashboardLayout>
       <>
         <TotalSection />
+        {/* {locations && <div className="pt-3 rounded-md">
+          <MultiplePinMap data={locations} />
+        </div>} */}
         <section className="grid lg:grid-cols-2 gap-4 mt-3">
           <div className="bg-white p-6 rounded-xl">
             <div className="lg:flex justify-between border-b border-[#DFDFDF] pb-2">
