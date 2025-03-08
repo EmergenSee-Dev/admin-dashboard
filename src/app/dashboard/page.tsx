@@ -19,12 +19,12 @@ export default function Home() {
   const getUpload = async () => {
     const response = await axios.get(`https://backend-api-auvp.onrender.com/api/emergensee/all`)
     // console.log(response.data.data)
-    const addresses = response.data.data.map((item: { _id: any; address: any; }) => ({
-      id: item?._id,
-      address: item?.address,
-    }));
+    // const addresses = response.data.data.map((item: { _id: any; address: any; }) => ({
+    //   id: item?._id,
+    //   address: item?.address,
+    // }));
     // console.log(addresses)
-    setLocations(addresses)
+    setLocations(response.data.data)
     setUpload(response.data.data.reverse())
   }
 
@@ -42,9 +42,9 @@ export default function Home() {
     <DashboardLayout>
       <>
         <TotalSection />
-        {/* {locations && <div className="pt-3 rounded-md">
+        {locations && <div className="pt-3 rounded-md">
           <MultiplePinMap data={locations} />
-        </div>} */}
+        </div>}
         <section className="grid lg:grid-cols-2 gap-4 mt-3">
           <div className="bg-white p-6 rounded-xl">
             <div className="lg:flex justify-between border-b border-[#DFDFDF] pb-2">

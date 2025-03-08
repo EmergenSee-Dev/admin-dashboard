@@ -12,10 +12,12 @@
     "@react-google-maps/api": "^2.20.6",
     "axios": "^1.7.9",
     "jotai": "^2.11.1",
+    "leaflet": "^1.9.4",
     "md-editor-rt": "^5.2.2",
     "next": "15.1.2",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-leaflet": "^5.0.0"
   },
   "devDependencies": {
     "@types/node": "^20",

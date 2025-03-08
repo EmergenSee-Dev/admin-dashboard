@@ -1,60 +1,77 @@
 import React, { useEffect, useState } from "react";
-import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
-
-const API_KEY = "AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8"; // Replace with your actual API key
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import L from "leaflet";
 
 const containerStyle = {
   width: "100%",
   height: "500px", // Adjust height as needed
 };
 
-const center = { lat: 37.7749, lng: -122.4194 }; // Default center (San Francisco)
+const center = [9.082, 8.6753];
+const zoomLevel = 6;
 
+const customIcon = new L.Icon({
+  iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+});
 
 const MultiplePinMap = ({ data }: { data: any }) => {
-  const [locations, setLocations] = useState<{ id: number; name: string; lat: number; lng: number }[]>([]);
+  const [locations, setLocations] = useState<any[]>([]);
 
+  // useEffect(() => {
+  //   const fetchCoordinates = async () => {
+  //     const newLocations = await Promise.all(
+  //       data.map(async (address) => {
+  //         try {
+  //           // Append ", Nigeria" to help improve accuracy
+  //           const query = `${encodeURIComponent(address.address)}, Nigeria`;
 
-  useEffect(() => {
-    console.log(data)
-    const fetchCoordinates = async () => {
-      const newLocations = await Promise.all(
-        data.map(async (address: { address: string | number | boolean; id: any; name: any; }) => {
-          try {
-            const response = await fetch(
-              `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
-                address.address
-              )}&key=${API_KEY}`
-            );
-            const data = await response.json();
-            if (data.status === "OK") {
-              const { lat, lng } = data.results[0].geometry.location;
-              return { id: address.id, name: address.name, lat, lng };
-            } else {
-              console.error("Geocoding failed:", data.status);
-              return null;
-            }
-          } catch (error) {
-            console.error("Error fetching geolocation:", error);
-            return null;
-          }
-        })
-      );
+  //           const response = await fetch(
+  //             `https://nominatim.openstreetmap.org/search?format=json&q=${query}`
+  //           );
 
-      setLocations(newLocations.filter((loc) => loc !== null));
-    };
+  //           const result = await response.json();
 
-    fetchCoordinates();
-  }, []);
+  //           if (result.length > 0) {
+  //             const { lat, lon } = result[0];
+  //             return {
+  //               id: address.id,
+  //               name: address.name,
+  //               lat: parseFloat(lat),
+  //               lng: parseFloat(lon)
+  //             };
+  //           } else {
+  //             console.error(`Geocoding failed for: ${address.address}`);
+  //             return null;
+  //           }
+  //         } catch (error) {
+  //           console.error(`Error fetching geolocation for ${address.address}:`, error);
+  //           return null;
+  //         }
+  //       })
+  //     );
+
+  //     setLocations(newLocations.filter((loc) => loc !== null));
+  //   };
+
+  //   fetchCoordinates();
+  // }, [data]);
 
   return (
-    <LoadScript googleMapsApiKey={API_KEY}>
-      <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={3}>
-        {locations.map((location) => (
-          <Marker key={location.id} position={{ lat: location.lat, lng: location.lng }} />
-        ))}
-      </GoogleMap>
-    </LoadScript>
+    <MapContainer center={center} zoom={zoomLevel} style={containerStyle}>
+      <TileLayer
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      />
+      {data.map((location) => (
+        <Marker key={location?._id} position={[location?.lat, location?.lng]} icon={customIcon}>
+          <Popup>{location?.address}</Popup>
+        </Marker>
+      ))}
+    </MapContainer>
   );
 };
 
