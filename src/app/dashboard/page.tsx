@@ -2,14 +2,17 @@
 
 import Btn from "@/components/Btn";
 import DashboardLayout from "@/components/DashboardLayout";
-import MultiplePinMap from "@/components/MultiplePinMap";
+// import MultiplePinMap from "@/components/MultiplePinMap";
 import TotalSection from "@/components/TotalSection";
 import { formatDate } from "@/utils/formatData";
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-
+import dynamic from 'next/dynamic';
+const MultiplePinMap = dynamic(() => import('@/components/MultiplePinMap'), {
+  ssr: false,
+});
 export default function Home() {
   const [upload, setUpload] = useState<any[]>([null])
   const [users, setUsers] = useState([])
