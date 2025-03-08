@@ -8,7 +8,7 @@ const containerStyle = {
   height: "500px", // Adjust height as needed
 };
 
-const center = [9.082, 8.6753];
+const center: [number, number] = [9.082, 8.6753];
 const zoomLevel = 6;
 
 const customIcon = new L.Icon({
@@ -19,7 +19,16 @@ const customIcon = new L.Icon({
 });
 
 const MultiplePinMap = ({ data }: { data: any }) => {
-  const [locations, setLocations] = useState<any[]>([]);
+
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) return <p>Loading map...</p>;
+
+
 
   // useEffect(() => {
   //   const fetchCoordinates = async () => {
@@ -66,7 +75,7 @@ const MultiplePinMap = ({ data }: { data: any }) => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
-      {data.map((location) => (
+      {data.map((location: any) => (
         <Marker key={location?._id} position={[location?.lat, location?.lng]} icon={customIcon}>
           <Popup>{location?.address}</Popup>
         </Marker>

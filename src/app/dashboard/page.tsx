@@ -15,6 +15,9 @@ export default function Home() {
   const [users, setUsers] = useState([])
   const [locations, setLocations] = useState(null)
 
+  if (typeof window !== "undefined") {
+    console.log("We are on the client!");
+  }
 
   const getUpload = async () => {
     const response = await axios.get(`https://backend-api-auvp.onrender.com/api/emergensee/all`)
