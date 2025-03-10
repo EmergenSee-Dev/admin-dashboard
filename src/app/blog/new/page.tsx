@@ -50,7 +50,7 @@ const BlogNewForm = () => {
 
   const getBlog = async () => {
     try {
-      const res = await axios.get(`https://backend-api-auvp.onrender.com/api/blogs/${page}`);
+      const res = await axios.get(`https://backend-api-mxr6.onrender.com/api/blogs/${page}`);
       if (res.data && res.data.data) {
         const data = res.data.data;
         setTitle(data.title);
@@ -109,7 +109,7 @@ const BlogNewForm = () => {
       // Append the file object (if available) with its name
       formData.append("image", file);
 
-      await axios.post('https://backend-api-auvp.onrender.com/api/blogs/new', formData, {
+      await axios.post('https://backend-api-mxr6.onrender.com/api/blogs/new', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -132,7 +132,7 @@ const BlogNewForm = () => {
         description: body,
         content: text,
       };
-      await axios.put(`https://backend-api-auvp.onrender.com/api/blogs/edit/${page}`, updatedBlog);
+      await axios.put(`https://backend-api-mxr6.onrender.com/api/blogs/edit/${page}`, updatedBlog);
       setLoading(false);
       clearLocalStorage();
       router.push('/blog');
