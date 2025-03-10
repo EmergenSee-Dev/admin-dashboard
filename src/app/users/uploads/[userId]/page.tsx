@@ -16,7 +16,7 @@ const userUploads = () => {
   // console.log(id)
   // https://backend-api-auvp.onrender.com/
   const getUploads = async () => {
-    const response = await axios.get(`https://backend-api-auvp.onrender.com/api/emergensee/user/${id}`)
+    const response = await axios.get(`https://backend-api-mxr6.onrender.com/api/emergensee/user/${id}`)
     // console.log(response.data.data)
     setUploads(response.data.data)
   }
