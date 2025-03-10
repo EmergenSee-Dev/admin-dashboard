@@ -49,7 +49,7 @@ const Auth = () => {
     }
     try {
       // Simulate API login request (replace with real API call)
-      const response = await axios.post('https://backend-api-auvp.onrender.com/auth/login', {
+      const response = await axios.post('https://backend-api-mxr6.onrender.com/auth/login', {
         phoneNumber: formatPhoneNumber(phone),
         password
       }
