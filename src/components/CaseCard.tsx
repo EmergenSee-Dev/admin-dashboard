@@ -9,7 +9,7 @@ const CaseCard = ({ data }: { data: any }) => {
     if (!window.confirm("Are you sure you want to delete this record?")) return;
 
     try {
-      const response = await fetch(`https://backend-api-auvp.onrender.com/api/emergensee/${data?._id}`, {
+      const response = await fetch(`https://backend-api-mxr6.onrender.com/api/emergensee/${data?._id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
