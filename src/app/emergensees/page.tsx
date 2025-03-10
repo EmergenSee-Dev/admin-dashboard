@@ -30,7 +30,7 @@ const EmergenseesContent = () => {
   // Fetch uploads with the active filter.
   // If active is "All", we fetch all uploads; otherwise, we add a query parameter.
   const getUpload = async () => {
-    let url = `https://backend-api-auvp.onrender.com/api/emergensee/all`;
+    let url = `https://backend-api-mxr6.onrender.com/api/emergensee/all`;
     if (active && active !== "All") {
       url += `?type=${encodeURIComponent(active)}`;
     }
@@ -55,7 +55,7 @@ const EmergenseesContent = () => {
 
   const handleDownloadCSV = async () => {
     try {
-      const response = await fetch("https://backend-api-auvp.onrender.com/api/emergensee/download", {
+      const response = await fetch("https://backend-api-mxr6.onrender.com/api/emergensee/download", {
         method: "GET",
         headers: {
           "Content-Type": "text/csv",
