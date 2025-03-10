@@ -23,7 +23,7 @@ export default function Home() {
   }
 
   const getUpload = async () => {
-    const response = await axios.get(`https://backend-api-auvp.onrender.com/api/emergensee/all`)
+    const response = await axios.get(`https://backend-api-mxr6.onrender.com/api/emergensee/all`)
     // console.log(response.data.data)
     // const addresses = response.data.data.map((item: { _id: any; address: any; }) => ({
     //   id: item?._id,
@@ -35,7 +35,7 @@ export default function Home() {
   }
 
   const getUsers = async () => {
-    const response = await axios.get(`https://backend-api-auvp.onrender.com/api/users`)
+    const response = await axios.get(`https://backend-api-mxr6.onrender.com/api/users`)
     // console.log(response.data.data)
     setUsers(response.data.data.reverse())
   }
