@@ -15,7 +15,7 @@ const SingleCase = () => {
   const [show, setShow] = useState(false)
 
   const getUpload = async () => {
-    const response = await axios.get(`https://backend-api-auvp.onrender.com/api/emergensee/single/${id}`)
+    const response = await axios.get(`https://backend-api-mxr6.onrender.com/api/emergensee/single/${id}`)
     // console.log(response.data.data)
     setUpload(response.data.data)
   }
