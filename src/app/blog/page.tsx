@@ -13,7 +13,7 @@ const BlogPage = () => {
   // Fetch all blogs from the API.
   const fetchBlogs = async () => {
     try {
-      const response = await axios.get('https://backend-api-auvp.onrender.com/api/blogs'); // Adjust the API endpoint as needed
+      const response = await axios.get('https://backend-api-mxr6.onrender.com/api/blogs'); // Adjust the API endpoint as needed
       setBlogs(response.data.data);
     } catch (error) {
       console.error('Error fetching blogs:', error);
@@ -44,7 +44,7 @@ const BlogPage = () => {
   // Delete a blog and refresh the list.
   const handleDelete = async (blogId: any) => {
     try {
-      await axios.delete(`https://backend-api-auvp.onrender.com/api/blogs/${blogId}`);
+      await axios.delete(`https://backend-api-mxr6.onrender.com/api/blogs/${blogId}`);
       // Refresh the blogs after deletion.
       fetchBlogs();
     } catch (error) {
