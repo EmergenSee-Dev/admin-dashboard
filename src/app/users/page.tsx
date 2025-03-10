@@ -9,7 +9,7 @@ const Users = () => {
   const [users, setUsers] = useState([])
 
   const getUsers = async () => {
-    const response = await axios.get('https://backend-api-auvp.onrender.com/api/users')
+    const response = await axios.get('https://backend-api-mxr6.onrender.com/api/users')
     // console.log(response.data.data)
     setUsers(response.data.data.reverse())
   }
