@@ -14,10 +14,10 @@ const SideNav = () => {
       title: "emergensees",
       link: '/emergensees'
     },
-    {
-      title: "blog",
-      link: '/blog'
-    },
+    // {
+    //   title: "blog",
+    //   link: '/blog'
+    // },
     // {
     //   title: "roles",
     //   link: '/roles'
