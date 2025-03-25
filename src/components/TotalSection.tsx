@@ -23,7 +23,7 @@ const TotalSection = () => {
     getUsers()
   }, [])
   return (
-    <section className='grid lg:grid-cols-3 gap-6'>
+    <section className='grid lg:grid-cols-2 gap-6'>
       <div className='bg-white flex justify-between rounded-xl p-6'>
         <div>
           <p className='text-[#879297]'>Total number  of mobile users</p>
@@ -47,7 +47,7 @@ const TotalSection = () => {
           </svg>
         </div>
       </div>
-      <div className='bg-white flex justify-between rounded-xl p-6'>
+      {/* <div className='bg-white flex justify-between rounded-xl p-6'>
         <div>
           <p className='text-[#879297]'>Total Number of Hospitals</p>
           <h1 className='text-3xl font-bold'>3,632</h1>
@@ -58,7 +58,7 @@ const TotalSection = () => {
             <path d="M5 1a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1a1 1 0 0 1 1 1v4h3a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h3V3a1 1 0 0 1 1-1zm2 14h2v-3H7zm3 0h1V3H5v12h1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1zm0-14H6v1h4zm2 7v7h3V8zm-8 7V8H1v7z" />
           </svg>
         </div>
-      </div>
+      </div> */}
     </section>
   );
 };
