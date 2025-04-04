@@ -16,10 +16,10 @@ const UserCard = ({ data }: { data: any }) => {
       </div>
 
       <div className='my-auto sm:flex sm:mt-2'>
-        <Link href={`/users/uploads/${data._id}`}>
+        <Link href={`/users/uploads/single?id=${data._id}`}>
           <button className="bg-[#DBE6FF] text-[#2764E7] p-2 w-32 my-auto rounded-full lg:ml-4 text-sm">View Records</button>
         </Link>
-        <Link href={`/users/${data._id}`}>
+        <Link href={`/users/single/?id=${data._id}`}>
           <button className="bg-[#DDC2E6] text-[#671C73] p-2 w-32 my-auto rounded-full ml-4 text-sm">View Profile</button>
         </Link>
       </div>

@@ -44,7 +44,7 @@ const CaseCard = ({ data }: { data: any }) => {
         </div>
       </div>
       <div>
-        <Link href={`/emergensees/${data?._id}`}>
+        <Link href={`/emergensees/single?id=${data?._id}`}>
           <button className='bg-[#66B5FF33] text-[#3688FF] sm:mt-3 p-2 px-6 my-auto'>View upload</button>
         </Link>
         <button className='p-3 my-auto' onClick={() => handleDelete()}>

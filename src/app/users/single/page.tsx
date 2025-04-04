@@ -2,13 +2,14 @@
 
 import DashboardLayout from '@/components/DashboardLayout';
 import axios from 'axios';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
 const singleUser = () => {
   const router = useRouter()
-  const page = usePathname()
-  const id = page.slice(7, page.length)
+
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id");
   const [user, setUser] = useState<any>(null)
 
   const getUser = async () => {

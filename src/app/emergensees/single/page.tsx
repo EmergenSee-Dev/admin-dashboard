@@ -4,14 +4,15 @@ import DashboardLayout from '@/components/DashboardLayout';
 import GoogleMapEmbed from '@/components/Map';
 import { formatDate, formatTime } from '@/utils/formatData';
 import axios from 'axios';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
 const SingleCase = () => {
   const router = useRouter()
   const [upload, setUpload] = useState<any>(null)
-  const page = usePathname()
-  const id = page.slice(13, page.length)
+  
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id");
   const [show, setShow] = useState(false)
 
   const getUpload = async () => {

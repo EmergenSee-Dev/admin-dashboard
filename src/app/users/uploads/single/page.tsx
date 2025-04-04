@@ -4,14 +4,14 @@ import CaseCard from '@/components/CaseCard';
 import DashboardLayout from '@/components/DashboardLayout';
 import TotalSection from '@/components/TotalSection';
 import axios from 'axios';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
 const userUploads = () => {
   const [active, setActive] = useState("all")
   const [uploads, setUploads] = useState<any[]>([])
-  const page = usePathname()
-  const id = page.slice(15, page.length)
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id");
 
   // console.log(id)
   // https://backend-api-auvp.onrender.com/

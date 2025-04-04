@@ -88,7 +88,7 @@ export default function Home() {
                   <p className="font-medium">{formatDate(new Date(single?.createdAt))}</p>
                 </div>
               </div>
-              <Link href={`/users/uploads/${single?._id}`}>
+              <Link href={`/users/uploads/single?id=${single?._id}`}>
                 <button className="bg-[#66B5FF33] text-[#3688FF] p-2 w-32 my-auto rounded-md lg:ml-4 text-sm">View Records</button>
               </Link>
             </div>)}
