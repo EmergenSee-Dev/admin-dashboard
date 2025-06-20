@@ -1,9 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  output: "export", // Enables static HTML export
-
+  output: "export", // Enables static HTML export for static hosting
 };
 
 export default nextConfig;

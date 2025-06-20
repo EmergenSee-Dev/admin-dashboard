@@ -42,12 +42,14 @@ const Users = () => {
 
   const handleDelete = async (userId: string) => {
     if (!window.confirm('Are you sure you want to delete this user?')) return;
-    const result = await tryDeleteEndpoints(userId);
-    if (result.success) {
+    try {
+      const url = `https://backend-api-mxr6.onrender.com/api/user/${userId}`;
+      await axios.delete(url);
       setUsers((prev: any) => prev.filter((user: any) => user._id !== userId));
-      alert('User deleted using endpoint: ' + result.url);
-    } else {
-      alert('Failed to delete user: No known endpoint worked.');
+      alert('User deleted successfully.');
+    } catch (error: any) {
+      console.error('Failed to delete user:', error);
+      alert('Failed to delete user. Please try again.');
     }
   };
 
