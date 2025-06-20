@@ -2,7 +2,7 @@ import { formatDate } from '@/utils/formatData';
 import Link from 'next/link';
 import React from 'react';
 
-const UserCard = ({ data }: { data: any }) => {
+const UserCard = ({ data, onDelete }: { data: any, onDelete?: (id: string) => void }) => {
   return (
     <div className=" border-b border-[#DFDFDF] lg:flex justify-between py-2">
       <div>
@@ -22,6 +22,14 @@ const UserCard = ({ data }: { data: any }) => {
         <Link href={`/users/single/?id=${data._id}`}>
           <button className="bg-[#DDC2E6] text-[#671C73] p-2 w-32 my-auto rounded-full ml-4 text-sm">View Profile</button>
         </Link>
+        {onDelete && (
+          <button
+            className="bg-red-500 text-white p-2 w-32 my-auto rounded-full ml-4 text-sm"
+            onClick={() => onDelete(data._id)}
+          >
+            Delete
+          </button>
+        )}
       </div>
     </div>
   );
