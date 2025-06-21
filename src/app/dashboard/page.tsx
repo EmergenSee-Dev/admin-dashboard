@@ -65,7 +65,7 @@ export default function Home() {
                 <Btn type={single?.type} />
               </div>
               <div className="flex text-[#9FA4A7] ">
-                <p>{single?.author.name}</p>
+                <p>{single?.author?.name}</p>
                 <p className="font-medium ml-2">{formatDate(new Date(single?.createdAt))}</p>
               </div>
             </div>)}

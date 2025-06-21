@@ -39,7 +39,7 @@ const CaseCard = ({ data }: { data: any }) => {
           {/* <button className="bg-[#1AA029] p-2 rounded-full capitalize text-white ml-4 text-sm">{data?.type} Update</button> */}
         </div>
         <div className="flex text-[#9FA4A7] ">
-          <p>{data?.author.name}</p>
+          <p>{data?.author?.name}</p>
           <p className="font-medium ml-2">{formatDate(new Date(data?.createdAt))}</p>
         </div>
       </div>

@@ -35,7 +35,7 @@ const SingleCaseContent = () => {
           <div className='flex sm:mb-3'>
             {/* <img src="/images/map.png" alt="" /> */}
             <div className='p-2 my-auto'>
-              <p className='text-[#0E4BF1] font-bold'>{upload.author.name}</p>
+              <p className='text-[#0E4BF1] font-bold'>{upload?.author?.name}</p>
               <p className='text-sm capitalize'>{upload.name}</p>
             </div>
           </div>
