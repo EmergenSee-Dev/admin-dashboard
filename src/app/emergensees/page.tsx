@@ -25,20 +25,28 @@ const EmergenseesContent = () => {
     { title: "Other Cases", value: "others" }
   ];
 
-  const [upload, setUpload] = useState<any>([]);
+  const [upload, setUpload] = useState<any[]>([]);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   // Fetch uploads with the active filter.
   // If active is "All", we fetch all uploads; otherwise, we add a query parameter.
   const getUpload = async () => {
-    let url = `https://backend-api-mxr6.onrender.com/api/emergensee/all`;
-    if (active && active !== "All") {
-      url += `?type=${encodeURIComponent(active)}`;
-    }
+    setError(null);
     try {
+      let url = `https://backend-api-mxr6.onrender.com/api/emergensee/all`;
+      if (active && active !== "All") {
+        url += `?type=${encodeURIComponent(active)}`;
+      }
       const response = await axios.get(url);
-      setUpload(response.data.data.reverse());
+      if (response.data && Array.isArray(response.data.data)) {
+        setUpload(response.data.data.reverse());
+      } else {
+        throw new Error('Invalid response format from server');
+      }
     } catch (error) {
       console.error("Error fetching uploads:", error);
+      setError("Failed to load uploads. Please try again later.");
     }
   };
 
@@ -83,6 +91,38 @@ const EmergenseesContent = () => {
     }
   };
 
+  const handleDeleteAll = async () => {
+    if (!window.confirm("WARNING: This will permanently delete all uploads. Are you sure you want to continue?")) {
+      return;
+    }
+
+    try {
+      setIsDeleting(true);
+      setError(null);
+      
+      // Delete all uploads in parallel for better performance
+      const deletePromises = upload.map(item => 
+        axios.delete(`https://backend-api-mxr6.onrender.com/api/emergensee/${item._id}`)
+      );
+      
+      await Promise.all(deletePromises);
+      
+      // Clear the uploads after successful deletion
+      setUpload([]);
+      alert("All uploads have been deleted successfully!");
+    } catch (error) {
+      console.error("Error deleting uploads:", error);
+      setError("An error occurred while deleting uploads. Some items may not have been deleted.");
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+  
+  // Handle single item delete
+  const handleDeleteItem = (deletedId: string) => {
+    setUpload(prevUploads => prevUploads.filter(item => item._id !== deletedId));
+  };
+
 
   return (
     <>
@@ -91,7 +131,7 @@ const EmergenseesContent = () => {
         <GoogleMapEmbed height={'400px'} address={upload[0]?.address} />
       </div>
       <section className='bg-white rounded-xl p-4 mt-4'>
-        <div className='lg:flex w-full justify-between'>
+        <div className='flex flex-col gap-3 lg:flex-row w-full lg:items-center lg:justify-between'>
           <div className='grid lg:grid-cols-6 grid-cols-3 sm:mb-3'>
             {filters.map((single, index) => (
               <button
@@ -111,20 +151,45 @@ const EmergenseesContent = () => {
         </div>
         {upload && (
           <>
-            <div className='lg:flex justify-between border-b border-[#DFDFDF] py-6'>
-              <div className='flex '>
+            <div className='flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between border-b border-[#DFDFDF] py-4'>
+              <div className='flex flex-wrap gap-3 items-center'>
                 <p className='uppercase font-bold my-auto'>all UPLOADS</p>
-                <button onClick={() => handleDownloadCSV()} className='p-3 rounded-full bg-[#FFCC00] ml-6'>Download CSV</button>
+                <div className='flex gap-3 flex-wrap'>
+                  <button 
+                    onClick={() => handleDownloadCSV()} 
+                    className='p-3 rounded-full bg-[#FFCC00] hover:bg-[#e6b800] transition-colors whitespace-nowrap'
+                  >
+                    Download CSV
+                  </button>
+                  <button 
+                    onClick={handleDeleteAll} 
+                    disabled={isDeleting || upload.length === 0}
+                    className={`p-3 rounded-full bg-red-500 hover:bg-red-600 text-white transition-colors whitespace-nowrap ${
+                      (isDeleting || upload.length === 0) ? 'opacity-50 cursor-not-allowed' : ''
+                    }`}
+                  >
+                    {isDeleting ? 'Deleting...' : 'Delete All'}
+                  </button>
+                </div>
               </div>
               <p className='font-medium'>{upload.length} UPLOADS</p>
             </div>
+            {error && (
+              <div className='text-red-500 text-center py-4'>
+                {error}
+              </div>
+            )}
             {upload.length > 0 ? (
-              upload.map((single: unknown, index: React.Key | null | undefined) => (
-                <CaseCard key={index} data={single}  />
+              upload.map((single) => (
+                <CaseCard 
+                  key={single._id} 
+                  data={single}
+                  onDelete={handleDeleteItem}
+                />
               ))
             ) : (
               <p className='text-center py-6'>
-                No uploads found for <span className='font-bold'>{active}</span>.
+                No uploads found{active !== 'All' ? ` for ${active}` : ''}.
               </p>
             )}
           </>

@@ -2,42 +2,65 @@
 
 import Btn from "@/components/Btn";
 import DashboardLayout from "@/components/DashboardLayout";
-// import MultiplePinMap from "@/components/MultiplePinMap";
 import TotalSection from "@/components/TotalSection";
 import { formatDate } from "@/utils/formatData";
 import axios from "axios";
-import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import dynamic from 'next/dynamic';
-const MultiplePinMap = dynamic(() => import('@/components/MultiplePinMap'), {
-  ssr: false,
-});
-export default function Home() {
-  const [upload, setUpload] = useState<any[]>([null])
-  const [users, setUsers] = useState([])
-  const [locations, setLocations] = useState(null)
 
-  if (typeof window !== "undefined") {
-    console.log("We are on the client!");
+// Import MultiplePinMap with SSR disabled
+const MultiplePinMap = dynamic(
+  () => import('@/components/MultiplePinMap'),
+  { 
+    ssr: false,
+    loading: () => <div className="h-[500px] w-full bg-gray-100 flex items-center justify-center">Loading map...</div>
   }
+);
+export default function Home() {
+  interface UploadItem {
+    _id: string;
+    name: string;
+    author: {
+      name: string;
+    };
+    type: string;
+    lat?: number;
+    lng?: number;
+    address?: string;
+    createdAt: string;
+  }
+
+  interface UserItem {
+    _id: string;
+    name: string;
+    createdAt: string;
+  }
+
+  const [upload, setUpload] = useState<UploadItem[]>([])
+  const [users, setUsers] = useState<UserItem[]>([])
+  const [locations, setLocations] = useState<UploadItem[] | null>(null)
+
+  // Client-side only code
+  useEffect(() => {
+    console.log("We are on the client!");
+  }, []);
 
   const getUpload = async () => {
     const response = await axios.get(`https://backend-api-mxr6.onrender.com/api/emergensee/all`)
-    // console.log(response.data.data)
-    // const addresses = response.data.data.map((item: { _id: any; address: any; }) => ({
-    //   id: item?._id,
-    //   address: item?.address,
-    // }));
-    // console.log(addresses)
-    setLocations(response.data.data)
-    setUpload(response.data.data.reverse())
+    console.log('Uploads data:', response.data.data);
+    const uploads = response.data.data.reverse().filter((item: UploadItem) => item != null);
+    console.log('Filtered uploads:', uploads);
+    setLocations(uploads);
+    setUpload(uploads);
   }
 
   const getUsers = async () => {
     const response = await axios.get(`https://backend-api-mxr6.onrender.com/api/users`)
-    // console.log(response.data.data)
-    setUsers(response.data.data.reverse())
+    console.log('Users data:', response.data.data);
+    const users = response.data.data.reverse().filter((user: UserItem) => user != null);
+    console.log('Filtered users:', users);
+    setUsers(users);
   }
   useEffect(() => {
     getUpload()

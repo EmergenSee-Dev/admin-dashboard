@@ -1,86 +1,88 @@
-import React, { useEffect, useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
-import L from "leaflet";
+'use client';
+
+import { useEffect, useState } from "react";
+import dynamic from 'next/dynamic';
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
+
+// Fix for default marker icons in Next.js
+const DefaultIcon = L.icon({
+  iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
+  iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
+  shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41]
+});
+L.Marker.prototype.options.icon = DefaultIcon;
 
 const containerStyle = {
   width: "100%",
-  height: "500px", // Adjust height as needed
+  height: "500px",
 };
 
 const center: [number, number] = [9.082, 8.6753];
 const zoomLevel = 6;
 
-const customIcon = new L.Icon({
-  iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-});
+// Dynamically import the MapContainer to avoid SSR issues
+const MapContainer = dynamic(
+  () => import('react-leaflet').then((mod) => mod.MapContainer),
+  { ssr: false }
+);
+const TileLayer = dynamic(
+  () => import('react-leaflet').then((mod) => mod.TileLayer),
+  { ssr: false }
+);
+const Marker = dynamic(
+  () => import('react-leaflet').then((mod) => mod.Marker),
+  { ssr: false }
+);
+const Popup = dynamic(
+  () => import('react-leaflet').then((mod) => mod.Popup),
+  { ssr: false }
+);
 
-const MultiplePinMap = ({ data }: { data: any }) => {
-
-  const [isClient, setIsClient] = useState(false);
+const MultiplePinMap = ({ data = [] }: { data: any[] }) => {
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    setIsClient(true);
+    setIsMounted(true);
   }, []);
 
-  if (!isClient) return <p>Loading map...</p>;
-
-
-
-  // useEffect(() => {
-  //   const fetchCoordinates = async () => {
-  //     const newLocations = await Promise.all(
-  //       data.map(async (address) => {
-  //         try {
-  //           // Append ", Nigeria" to help improve accuracy
-  //           const query = `${encodeURIComponent(address.address)}, Nigeria`;
-
-  //           const response = await fetch(
-  //             `https://nominatim.openstreetmap.org/search?format=json&q=${query}`
-  //           );
-
-  //           const result = await response.json();
-
-  //           if (result.length > 0) {
-  //             const { lat, lon } = result[0];
-  //             return {
-  //               id: address.id,
-  //               name: address.name,
-  //               lat: parseFloat(lat),
-  //               lng: parseFloat(lon)
-  //             };
-  //           } else {
-  //             console.error(`Geocoding failed for: ${address.address}`);
-  //             return null;
-  //           }
-  //         } catch (error) {
-  //           console.error(`Error fetching geolocation for ${address.address}:`, error);
-  //           return null;
-  //         }
-  //       })
-  //     );
-
-  //     setLocations(newLocations.filter((loc) => loc !== null));
-  //   };
-
-  //   fetchCoordinates();
-  // }, [data]);
+  if (!isMounted) {
+    return (
+      <div style={containerStyle} className="flex items-center justify-center bg-gray-100">
+        <p>Loading map...</p>
+      </div>
+    );
+  }
 
   return (
-    <MapContainer center={center} zoom={zoomLevel} style={containerStyle}>
-      <TileLayer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      />
-      {data.map((location: any) => (
-        <Marker key={location?._id} position={[location?.lat, location?.lng]} icon={customIcon}>
-          <Popup>{location?.address}</Popup>
-        </Marker>
-      ))}
-    </MapContainer>
+    <div style={containerStyle}>
+      <MapContainer 
+        center={center} 
+        zoom={zoomLevel} 
+        style={{ height: '100%', width: '100%' }}
+        zoomControl={false}
+      >
+        <TileLayer
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        />
+        {Array.isArray(data) && data.map((location) => {
+          if (!location?.lat || !location?.lng) return null;
+          return (
+            <Marker 
+              key={location?._id || `${location.lat}-${location.lng}`} 
+              position={[location.lat, location.lng]}
+            >
+              <Popup>{location?.address || 'No address provided'}</Popup>
+            </Marker>
+          );
+        })}
+      </MapContainer>
+    </div>
   );
 };
 

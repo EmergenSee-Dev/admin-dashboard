@@ -3,7 +3,12 @@ import Link from 'next/link';
 import React from 'react';
 import Btn from './Btn';
 
-const CaseCard = ({ data }: { data: any }) => {
+interface CaseCardProps {
+  data: any;
+  onDelete?: (id: string) => void;
+}
+
+const CaseCard = ({ data, onDelete }: CaseCardProps) => {
 
   const handleDelete = async () => {
     if (!window.confirm("Are you sure you want to delete this record?")) return;
@@ -20,10 +25,9 @@ const CaseCard = ({ data }: { data: any }) => {
         throw new Error("Failed to delete Emergensee record.");
       }
       alert("Emergensee deleted successfully!");
-      window.location.reload();
-
-      // Update the state (remove the deleted item from the list)
-      // setEmergensees((prev) => prev.filter((item) => item._id !== id));
+      if (onDelete && data?._id) {
+        onDelete(data._id);
+      }
     } catch (error) {
       console.error("Error deleting Emergensee:", error);
       alert("Error deleting Emergensee. Please try again.");
